@@ -1,0 +1,38 @@
+{
+  "name": "factory-support",
+  "displayName": "Factory Support",
+  "description": "Factory Precompiler Extension for VS Code",
+  "version": "1.0.1",
+  "engines": {
+    "vscode": "^1.64.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "factory",
+        "aliases": [
+          "Factory Precompiler",
+          "factory"
+        ],
+        "extensions": [
+          ".factory"
+        ],
+        "configuration": "./language-configuration.json",
+        "icon": {
+          "light": "./icons/icon.png",
+          "dark": "./icons/icon.png"
+        }
+      }
+    ],
+    "grammars": [
+      {
+        "language": "factory",
+        "scopeName": "source.factory",
+        "path": "./syntaxes/factory.tmLanguage.json"
+      }
+    ]
+  }
+}

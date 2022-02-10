@@ -1,0 +1,48 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Factory Precompiler",
+  "patterns": [
+    {
+      "include": "#keywords"
+    },
+    {
+      "include": "#strings"
+    },
+    {
+      "include": "#paren-expression"
+    }
+  ],
+  "repository": {
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.factory",
+          "match": "\\b(if|while|for|return)\\b"
+        }
+      ]
+    },
+    "strings": {
+      "name": "string.quoted.double.factory",
+      "begin": "\"",
+      "end": "\"",
+      "patterns": [
+        {
+          "name": "constant.character.escape.factory",
+          "match": "\\\\."
+        }
+      ]
+    },
+    "paren-expression": {
+      "name": "test.some.thing.factory",
+      "begin": "a",
+      "end": "\\)",
+      "patterns": [
+        {
+          "name": "constant.character.escape.factory",
+          "match": "\\\\."
+        }
+      ]
+    }
+  },
+  "scopeName": "source.factory"
+}
