@@ -31,7 +31,8 @@
       {
         "language": "factory",
         "scopeName": "source.factory",
-        "path": "./syntaxes/factory.tmLanguage.json"
+        "path": "./syntaxes/factory.tmLanguage.json",
+        "embeddedLanguages": {}
       }
     ]
   }

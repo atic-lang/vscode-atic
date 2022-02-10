@@ -6,10 +6,10 @@
       "include": "#keywords"
     },
     {
-      "include": "#strings"
+      "include": "#attribute"
     },
     {
-      "include": "#paren-expression"
+      "include": "#text"
     }
   ],
   "repository": {
@@ -17,25 +17,24 @@
       "patterns": [
         {
           "name": "keyword.control.factory",
-          "match": "\\b(if|while|for|return)\\b"
+          "match": "(\\w|-)[^(]*"
         }
       ]
     },
-    "strings": {
-      "name": "string.quoted.double.factory",
-      "begin": "\"",
-      "end": "\"",
+    "attribute": {
+      "name": "attribute.html.factory",
+      "begin": "\\(",
+      "end": "\\)",
       "patterns": [
         {
-          "name": "constant.character.escape.factory",
-          "match": "\\\\."
+          "include": "text.html.basic#attribute"
         }
       ]
     },
-    "paren-expression": {
-      "name": "test.some.thing.factory",
-      "begin": "a",
-      "end": "\\)",
+    "text": {
+      "name": "variable.function.factory",
+      "begin": "\"",
+      "end": "\"",
       "patterns": [
         {
           "name": "constant.character.escape.factory",
