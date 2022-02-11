@@ -9,6 +9,19 @@
   "categories": [
     "Programming Languages"
   ],
+  "devDependencies": {
+    "@types/node": "^12.12.0",
+    "@types/vscode": "^1.45.0"
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -b",
+    "watch": "tsc -b -w"
+  },
+  "activationEvents": [
+    "onCommand:workbench.action.tasks.runTask"
+  ],
+  "main": "./out/customTaskProvider",
   "contributes": {
     "languages": [
       {
@@ -33,6 +46,11 @@
         "scopeName": "source.factory",
         "path": "./syntaxes/factory.tmLanguage.json",
         "embeddedLanguages": {}
+      }
+    ],
+    "taskDefinitions": [
+      {
+        "type": "Factory"
       }
     ]
   }
