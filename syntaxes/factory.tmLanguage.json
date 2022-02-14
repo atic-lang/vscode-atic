@@ -1,49 +1,50 @@
 {
-  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
-  "name": "Factory Precompiler",
-  "foldingStartMarker": "\\{\\s*$",
-  "foldingStopMarker": "^\\s*\\}",
-  "patterns": [
-    {
-      "include": "#keywords"
-    },
-    {
-      "include": "#attribute"
-    },
-    {
-      "include": "#text"
-    }
-  ],
-  "repository": {
-    "keywords": {
-      "patterns": [
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "Factory Precompiler",
+    "foldingStartMarker": "\\{\\s*$",
+    "foldingStopMarker": "^\\s*\\}",
+    "patterns": [
         {
-          "name": "keyword.control.factory",
-          "match": "(\\w|-)[^(]*"
-        }
-      ]
-    },
-    "attribute": {
-      "name": "attribute.html.factory",
-      "begin": "\\(",
-      "end": "\\)",
-      "patterns": [
+            "include": "#attribute"
+        },
         {
-          "include": "text.html.basic#attribute"
-        }
-      ]
-    },
-    "text": {
-      "name": "variable.function.factory",
-      "begin": "\"",
-      "end": "\"",
-      "patterns": [
+            "include": "#keywords"
+        },
         {
-          "name": "constant.character.escape.factory",
-          "match": "\\\\."
+            "include": "#text"
         }
-      ]
-    }
-  },
-  "scopeName": "source.factory"
+    ],
+    "repository": {
+        "keywords": {
+            "patterns": [
+                {
+                    "name": "keyword.control.factory",
+                    "match": "(\\w|-)*(?=\\()"
+                }
+            ]
+        },
+        "attribute": {
+            "name": "attribute.html.factory",
+            "begin": "\\(",
+            "end": "\\)",
+            "contentName": "meta.embedded.block.html",
+            "patterns": [
+                {
+                    "include": "text.html.basic#attribute"
+                }
+            ]
+        },
+        "text": {
+            "name": "variable.function.factory",
+            "begin": "\"",
+            "end": "\"",
+            "patterns": [
+                {
+                    "name": "constant.character.escape.factory",
+                    "match": "\\\\."
+                }
+            ]
+        }
+    },
+    "scopeName": "source.factory"
 }
