@@ -1,14 +1,13 @@
 {
     "compilerOptions": {
-        "target": "es6",
         "module": "commonjs",
-        "lib": ["es6"],
-        "moduleResolution": "node",
-        "sourceMap": false,
-        "strict": false,
+        "target": "es2019",
+        "lib": ["ES2019"],
         "outDir": "out",
-        "rootDir": "src"
+        "rootDir": "src",
+        "sourceMap": true
     },
     "include": ["src"],
-    "exclude": ["node_modules", ".vscode-test"]
+    "exclude": ["node_modules", ".vscode-test"],
+    "references": [{ "path": "./client" }, { "path": "./server" }]
 }
