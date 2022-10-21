@@ -1,7 +1,7 @@
 {
-    "name": "factory-vscode-support-client",
-    "displayName": "Factory Support Client",
-    "description": "Factory Precompiler Extension for VS Code",
+    "name": "atic-vscode-support-client",
+    "displayName": "Atic Support Server",
+    "description": "Atic Extension for VS Code",
     "version": "0.0.1",
     "engines": {
         "node": "*"

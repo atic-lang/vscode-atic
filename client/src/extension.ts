@@ -23,7 +23,6 @@ export function activate(context: vscode.ExtensionContext): void {
     };
 
     client = new LanguageClient('factoryServer', 'Factory Language Server', serverOptions, clientOptions);
-
     client.start();
 
     const provider = new FactoryTaskProvider();

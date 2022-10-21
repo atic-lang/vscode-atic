@@ -1,0 +1,144 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "Atic",
+    "foldingStartMarker": "\\{\\s*$",
+    "foldingStopMarker": "^\\s*\\}",
+    "patterns": [
+        {
+            "include": "#method-head"
+        },
+        {
+            "include": "#imports"
+        },
+        {
+            "include": "#definition"
+        },
+        {
+            "include": "#keywords"
+        }
+    ],
+    "repository": {
+        "keywords": {
+            "match": "\\b(let|const|fn|use|lst|if|else|while|enum|match|matches|global|logic|native|exception|strict|async|struct|try|throw|return)\\b",
+            "name": "keyword.control.java"
+        },
+        "imports": {
+            "match": "\\b(use)\\s+(\\w+\\s*(\\s*\\.\\s*\\w+)+)",
+            "captures": {
+                "1": {
+                    "name": "keyword.other.import.java"
+                },
+                "0": {
+                    "name": "storage.modifier.import.java"
+                }
+            },
+            "name": "meta.import.java"
+        },
+        "code": {},
+        "definition": {
+            "match": "\\b(let|const)\\s+(.*)",
+            "captures": {
+                "2": {
+                    "patterns": [
+                        {
+                            "match": "\\w+\\s*(.*)",
+                            "captures": {
+                                "0": {
+                                    "patterns": [
+                                        {
+                                            "match": "(\\:)(.+(?=\\=))(\\=)",
+                                            "captures": {
+                                                "2": {
+                                                    "patterns": [
+                                                        {
+                                                            "include": "#types"
+                                                        }
+                                                    ]
+                                                },
+                                                "3": {
+                                                    "name": "keyword.operator.assignment.java"
+                                                }
+                                            },
+                                            "name": "keyword.operator.assert.expression-separator.java"
+                                        },
+                                        {
+                                            "match": "(\\=)(.*)",
+                                            "captures": {
+                                                "1": {
+                                                    "name": "keyword.operator.assignment.java"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            },
+                            "name": "variable.other.definition.java"
+                        }
+                    ]
+                },
+                "1": {
+                    "name": "keyword.control.java"
+                }
+            }
+        },
+        "method-head": {
+            "begin": "(fn)\\s+(\\w+)(\\()",
+            "beginCaptures": {
+                "2": {
+                    "name": "entity.name.function.java"
+                },
+                "1": {
+                    "name": "keyword.control.java"
+                },
+                "3": {
+                    "name": "punctuation.definition.parameters.begin.bracket.round.java"
+                }
+            },
+            "end": "\\)",
+            "endCaptures": {
+                "0": {
+                    "name": "punctuation.definition.parameters.end.bracket.round.java"
+                }
+            },
+            "patterns": [
+                {
+                    "include": "#parameters"
+                }
+            ]
+        },
+        "parameters": {
+            "patterns": [
+                {
+                    "begin": "\\s*(\\w+)\\s*(\\:)\\s*",
+                    "beginCaptures": {
+                        "0": {
+                            "name": "keyword.operator.assert.expression-separator.java"
+                        },
+                        "1": {
+                            "name": "variable.parameter.java"
+                        }
+                    },
+                    "end": ",|(?=\\))",
+                    "patterns": [
+                        {
+                            "include": "#types"
+                        }
+                    ]
+                }
+            ]
+        },
+        "types": {
+            "patterns": [
+                {
+                    "match": "(void|bool|string|number)",
+                    "name": "storage.type.primitive.java"
+                },
+                {
+                    "match": "\\w+",
+                    "name": "storage.type.java"
+                }
+            ]
+        }
+    },
+    "scopeName": "source.atic"
+}

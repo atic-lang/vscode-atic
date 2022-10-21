@@ -1,7 +1,7 @@
 {
-    "name": "factory-vscode-support",
-    "displayName": "Factory Support",
-    "description": "Factory Precompiler Extension for VS Code",
+    "name": "atic-vscode-support",
+    "displayName": "Atic Support",
+    "description": "Actic Extension for VS Code",
     "version": "1.2.1",
     "engines": {
         "vscode": "^1.64.0"
@@ -31,14 +31,12 @@
     "contributes": {
         "languages": [
             {
-                "id": "factory",
+                "id": "atic",
                 "aliases": [
-                    "Factory Precompiler",
-                    "factory"
+                    "atic"
                 ],
                 "extensions": [
-                    ".factory",
-                    ".fty"
+                    ".atic"
                 ],
                 "configuration": "./client/language-configuration.json",
                 "icon": {
@@ -49,9 +47,9 @@
         ],
         "grammars": [
             {
-                "language": "factory",
-                "scopeName": "source.factory",
-                "path": "./client/syntaxes/factory.tmLanguage.json",
+                "language": "atic",
+                "scopeName": "source.atic",
+                "path": "./client/syntaxes/atic.tmLanguage.json",
                 "embeddedLanguages": {
                     "meta.embedded.block.html": "html"
                 }
@@ -59,13 +57,13 @@
         ],
         "taskDefinitions": [
             {
-                "type": "Factory"
+                "type": "atic"
             }
         ],
         "commands": [
             {
-                "command": "factory.convertFile",
-                "title": "Factory: Convert File"
+                "command": "atic.convertFile",
+                "title": "Atic: Convert File"
             }
         ]
     }

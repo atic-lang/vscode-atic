@@ -15,27 +15,13 @@ export class FactoryTaskProvider implements vscode.Disposable {
         const file = uri.fsPath;
         terminal.clear();
         terminal.appendLine('[Factory] File change detected.');
-        if (isFileFactoryFile(file)) convertFile(file);
+        if (isFileFactoryFile(file)) {
+            convertFile(file);
+        }
     }
 
     public async provideTasks(): Promise<vscode.Task[]> {
-        /*
-    let execution = new vscode.ShellExecution(
-      "java -jar $env:APPDATA/HTMLFactory/Factory.jar ${file}"
-    );
-    let problemMatchers = ["$myProblemMatcher"];
-      */
         return [];
-        // return [
-        //   new vscode.Task(
-        //     { type: FactoryTaskProvider.type },
-        //     vscode.TaskScope.Workspace,
-        //     "Conversion Task",
-        //     FactoryTaskProvider.type,
-        //     execution,
-        //     problemMatchers
-        //   ),
-        // ];
     }
 
     public resolveTask(_task: vscode.Task): vscode.Task | undefined {
