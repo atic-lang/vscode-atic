@@ -1,0 +1,70 @@
+{
+    "name": "atic-vscode-support",
+    "displayName": "Atic Support",
+    "description": "Actic Extension for VS Code",
+    "version": "1.2.1",
+    "engines": {
+        "vscode": "^1.64.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "devDependencies": {},
+    "prettier": {
+        "trailingComma": "es5",
+        "tabWidth": 4,
+        "semi": true,
+        "singleQuote": true,
+        "bracketSpacing": true,
+        "printWidth": 120
+    },
+    "scripts": {
+        "vscode:prepublish": "cd client && npm install && cd .. && npm run compile",
+        "compile": "tsc -b",
+        "watch": "tsc -b -w",
+        "postinstall": "cd client && npm install && cd ../server && npm install && cd .."
+    },
+    "activationEvents": [
+        "onStartupFinished"
+    ],
+    "main": "./client/out/extension",
+    "contributes": {
+        "languages": [
+            {
+                "id": "atic",
+                "aliases": [
+                    "atic"
+                ],
+                "extensions": [
+                    ".atic"
+                ],
+                "configuration": "./client/language-configuration.json",
+                "icon": {
+                    "light": "./icons/icon.png",
+                    "dark": "./icons/icon.png"
+                }
+            }
+        ],
+        "grammars": [
+            {
+                "language": "atic",
+                "scopeName": "source.atic",
+                "path": "./client/syntaxes/atic.tmLanguage.json",
+                "embeddedLanguages": {
+                    "meta.embedded.block.html": "html"
+                }
+            }
+        ],
+        "taskDefinitions": [
+            {
+                "type": "atic"
+            }
+        ],
+        "commands": [
+            {
+                "command": "atic.convertFile",
+                "title": "Atic: Convert File"
+            }
+        ]
+    }
+}

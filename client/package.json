@@ -1,0 +1,28 @@
+{
+    "name": "atic-vscode-support-client",
+    "displayName": "Atic Support Client",
+    "description": "Atic Extension for VS Code",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.64.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "dependencies": {
+        "vscode-languageclient": "^6.1.3"
+    },
+    "devDependencies": {
+        "@types/node": "^12.12.0",
+        "@types/vscode": "^1.43.0",
+        "factory-transpiler": "^2.3.4"
+    },
+    "prettier": {
+        "trailingComma": "es5",
+        "tabWidth": 4,
+        "semi": true,
+        "singleQuote": true,
+        "bracketSpacing": true,
+        "printWidth": 120
+    }
+}

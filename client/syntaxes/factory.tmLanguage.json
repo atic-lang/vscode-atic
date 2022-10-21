@@ -1,0 +1,190 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "Atic",
+    "foldingStartMarker": "\\{\\s*$",
+    "foldingStopMarker": "^\\s*\\}",
+    "patterns": [
+        {
+            "begin": "\\b(use)\\b\\s*",
+            "beginCaptures": {
+                "1": {
+                    "name": "keyword.other.import.java"
+                }
+            },
+            "end": "\\s*(;)",
+            "endCaptures": {
+                "1": {
+                    "name": "punctuation.terminator.java"
+                }
+            },
+            "name": "meta.import.java",
+            "contentName": "storage.modifier.import.java",
+            "patterns": [
+                {
+                    "match": "\\.",
+                    "name": "punctuation.separator.java"
+                }
+            ]
+        },
+        {
+            "include": "#function"
+        }
+    ],
+    "repository": {
+        "function": {
+            "match": "(fn)(.*)",
+            "name": "keyword.other.import.java",
+            "captures": {
+                "1": {
+                    "name": ""
+                },
+                "0": {
+                    "patterns": [
+                        {
+                            "begin": "\\s*(\\w+)\\s*(\\()",
+                            "beginCaptures": {
+                                "1": {
+                                    "name": "entity.name.function.java"
+                                },
+                                "2": {
+                                    "name": "punctuation.definition.parameters.begin.bracket.round.java"
+                                }
+                            },
+                            "end": "\\)",
+                            "endCaptures": {
+                                "0": {
+                                    "name": "punctuation.definition.parameters.end.bracket.round.java"
+                                }
+                            },
+                            "name": "meta.method.identifier.java",
+                            "patterns": [
+                                {
+                                    "include": "#parameters"
+                                }
+                            ]
+                        },
+                        {
+                            "include": "#statements"
+                        }
+                    ]
+                }
+            }
+        },
+        "parameters": {
+            "patterns": [
+                {
+                    "begin": "\\s*(\\w+)\\s*(\\:)\\s*",
+                    "beginCaptures": {
+                        "0": {
+                            "name": "keyword.operator.assert.expression-separator.java"
+                        },
+                        "1": {
+                            "name": "variable.parameter.java"
+                        }
+                    },
+                    "end": ",|(?=\\))",
+                    "patterns": [
+                        {
+                            "include": "#types"
+                        }
+                    ]
+                },
+                {
+                    "match": "\\s*",
+                    "name": "keyword.other.import.java"
+                }
+            ]
+        },
+        "statements": {
+            "name": "statement.atic",
+            "patterns": [
+                {
+                    "begin": "({)",
+                    "beginCaptures": {
+                        "0": {
+                            "name": "punctuation.section.method.begin.bracket.curly.java"
+                        }
+                    },
+                    "end": "(})",
+                    "endCaptures": {
+                        "0": {
+                            "name": "punctuation.section.method.end.bracket.curly.java"
+                        }
+                    },
+                    "name": "storage.type.local.java"
+                },
+                {
+                    "begin": "(let|const)\\s*(\\w*)",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "storage.type.local.java"
+                        },
+                        "0": {
+                            "name": "variable.other.definition.java"
+                        }
+                    },
+                    "name": "definition.atic",
+                    "end": "(;)",
+                    "endCaptures": {
+                        "0": {
+                            "name": "punctuation.terminator.java"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "begin": "\\s*(\\:)\\s*",
+                            "beginCaptures": {
+                                "0": {
+                                    "name": "keyword.operator.assert.expression-separator.java"
+                                }
+                            },
+                            "end": "(?=\\=)",
+                            "name": "storage.type.primitive.java",
+                            "patterns": [
+                                {
+                                    "include": "#types"
+                                }
+                            ]
+                        },
+                        {
+                            "begin": "\\s*(\\=)\\s*",
+                            "beginCaptures": {
+                                "0": {
+                                    "name": "keyword.operator.assignment.java"
+                                }
+                            },
+                            "name": "storage.modifier.import.java",
+                            "end": "(?=\\;)",
+                            "patterns": [
+                                {
+                                    "include": "#expression"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "types": {
+            "patterns": [
+                {
+                    "match": "(void|bool|string|number)",
+                    "name": "storage.type.primitive.java"
+                },
+                {
+                    "match": "\\w+",
+                    "name": "storage.type.java"
+                }
+            ]
+        },
+        "expression": {
+            "patterns": [
+                {
+                    "match": "(true|false)",
+                    "name": "constant.language.java"
+                }
+            ]
+        }
+    },
+    "scopeName": "source.atic"
+}
