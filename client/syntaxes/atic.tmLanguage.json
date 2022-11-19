@@ -19,13 +19,58 @@
                     "include": "#while"
                 },
                 {
-                    "include": "#memberCall"
-                },
-                {
                     "include": "#if"
                 },
                 {
+                    "include": "#enum"
+                },
+                {
+                    "include": "#struct"
+                },
+                {
+                    "include": "#function-head"
+                },
+                {
+                    "match": "\\s*(fn)\\s*(.*)",
+                    "name": "atic.function.inline",
+                    "captures": {
+                        "1": {
+                            "name": "keyword.control.java"
+                        },
+                        "2": {
+                            "patterns": [
+                                {
+                                    "include": "#functionInput"
+                                },
+                                {
+                                    "begin": "\\s*(->)\\s*",
+                                    "beginCaptures": {
+                                        "1": {
+                                            "name": "entity.name.function.java"
+                                        }
+                                    },
+                                    "patterns": [
+                                        {
+                                            "include": "#type"
+                                        }
+                                    ],
+                                    "end": "(?={)"
+                                },
+                                {
+                                    "include": "#include"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "include": "#keywords"
+                },
+                {
                     "include": "#memberAccess"
+                },
+                {
+                    "include": "#memberCall"
                 },
                 {
                     "match": "\\s*(true|false)\\s*",
@@ -34,12 +79,6 @@
                 {
                     "match": "\\s*[0-9]([0-9\\.]*)\\s*",
                     "name": "constant.numeric.decimal.java"
-                },
-                {
-                    "include": "#enum"
-                },
-                {
-                    "include": "#struct"
                 },
                 {
                     "match": "\\s*\\/\\/(.*)",
@@ -64,12 +103,6 @@
                         }
                     },
                     "name": "comment.line.double-slash.java"
-                },
-                {
-                    "include": "#function-head"
-                },
-                {
-                    "include": "#keywords"
                 },
                 {
                     "include": "#string"
@@ -220,22 +253,21 @@
         },
         "function-head": {
             "name": "atic.function.head",
-            "begin": "^([^<]*)\\s*(\\bfn\\b)\\s*(<([^>]*)>)?\\s*",
+            "begin": "^((native|strict|async|exception)*)\\s*(\\bfn\\b)\\s*(<([^>]*)>)?\\s*",
             "beginCaptures": {
                 "1": {
-                    "patterns": [
-                        {
-                            "include": "#properties"
-                        }
-                    ]
+                    "name": "storage.modifier.java"
                 },
                 "2": {
                     "name": "storage.modifier.java"
                 },
                 "3": {
-                    "name": "punctuation.bracket.angle.java"
+                    "name": "storage.modifier.java"
                 },
                 "4": {
+                    "name": "punctuation.bracket.angle.java"
+                },
+                "5": {
                     "name": "punctuation.separator.delimiter.java",
                     "patterns": [
                         {
@@ -293,13 +325,38 @@
             "end": "(?={)"
         },
         "enum": {
-            "begin": "\\s*(enum)\\s*(\\w+)\\s*{",
+            "begin": "\\s*(enum)\\s*(\\w+)\\s*(<([^>]*)>)?\\s{",
             "beginCaptures": {
                 "1": {
                     "name": "storage.modifier.java"
                 },
                 "2": {
                     "name": "entity.name.type.class.java"
+                },
+                "3": {
+                    "name": "punctuation.bracket.angle.java"
+                },
+                "4": {
+                    "name": "punctuation.separator.delimiter.java",
+                    "patterns": [
+                        {
+                            "match": "([^,]+)",
+                            "captures": {
+                                "1": {
+                                    "patterns": [
+                                        {
+                                            "match": "\\s*(\\w+)\\s*",
+                                            "captures": {
+                                                "1": {
+                                                    "name": "storage.type.generic.java"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    ]
                 }
             },
             "patterns": [
@@ -330,7 +387,7 @@
             "end": "}"
         },
         "struct": {
-            "begin": "\\s*(struct)\\s*(\\w+)\\s*{",
+            "begin": "\\s*(struct)\\s*(\\w+)\\s*(<([^>]*)>)?\\s*{",
             "name": "atic.struct.body",
             "beginCaptures": {
                 "1": {
@@ -338,6 +395,31 @@
                 },
                 "2": {
                     "name": "entity.name.type.class.java"
+                },
+                "3": {
+                    "name": "punctuation.bracket.angle.java"
+                },
+                "4": {
+                    "name": "punctuation.separator.delimiter.java",
+                    "patterns": [
+                        {
+                            "match": "([^,]+)",
+                            "captures": {
+                                "1": {
+                                    "patterns": [
+                                        {
+                                            "match": "\\s*(\\w+)\\s*",
+                                            "captures": {
+                                                "1": {
+                                                    "name": "storage.type.generic.java"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    ]
                 }
             },
             "patterns": [
@@ -368,7 +450,12 @@
         },
         "functionInput": {
             "begin": "\\(",
-            "name": "punctuation.definition.parameters.begin.bracket.round.java",
+            "beginCaptures": {
+                "0": {
+                    "name": "punctuation.definition.parameters.begin.bracket.round.java"
+                }
+            },
+            "name": "atic.function.input",
             "patterns": [
                 {
                     "match": "\\s*,\\s*",
@@ -376,6 +463,7 @@
                 },
                 {
                     "begin": "\\s*(\\w+)(:)",
+                    "name": "atic.function.parameter",
                     "beginCaptures": {
                         "1": {
                             "name": "variable.parameter.java"
@@ -400,6 +488,11 @@
                     }
                 }
             ],
+            "endCaptures": {
+                "0": {
+                    "name": "punctuation.definition.parameters.end.bracket.round.java"
+                }
+            },
             "end": "\\)"
         },
         "type": {
@@ -431,7 +524,7 @@
                     }
                 },
                 {
-                    "include": "#functionInput"
+                    "include": "#functionInputType"
                 },
                 {
                     "match": "\\s*->\\s*",
@@ -441,6 +534,26 @@
                     "include": "#genericsOptionalType"
                 }
             ]
+        },
+        "functionInputType": {
+            "begin": "\\s*\\(\\s*",
+            "beginCaptures": {
+                "0": {
+                    "name": "punctuation.definition.parameters.begin.bracket.round.java"
+                }
+            },
+            "name": "atic.function.input.types",
+            "patterns": [
+                {
+                    "include": "#type"
+                }
+            ],
+            "endCaptures": {
+                "0": {
+                    "name": "punctuation.definition.parameters.end.bracket.round.java"
+                }
+            },
+            "end": "\\s*\\)\\s*"
         },
         "genericsOptionalType": {
             "begin": "\\s*(<)\\s*",
