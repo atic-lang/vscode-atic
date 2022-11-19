@@ -5,558 +5,146 @@
     "foldingStopMarker": "^\\s*\\}",
     "patterns": [
         {
-            "include": "#method-head"
-        },
-        {
-            "include": "#returnParam"
-        },
-        {
-            "include": "#struct"
-        },
-        {
-            "include": "#enum"
-        },
-        {
-            "include": "#imports"
-        },
-        {
-            "include": "#keywords"
-        },
-        {
-            "include": "#code"
-        },
-        {
-            "include": "#semicolon"
+            "include": "#topLevel"
         }
     ],
     "repository": {
-        "struct": {
-            "begin": "\\s*(.*)\\s*\\b(struct)\\b\\s*(\\w+)(.*){",
-            "beginCaptures": {
-                "1": {
-                    "patterns": [
-                        {
-                            "include": "#keywords"
-                        }
-                    ]
-                },
-                "2": {
-                    "patterns": [
-                        {
-                            "include": "#keywords"
-                        }
-                    ]
-                },
-                "3": {
-                    "name": "entity.name.type.class.java"
-                },
-                "4": {
-                    "patterns": [
-                        {
-                            "include": "#genericDef"
-                        }
-                    ]
-                }
-            },
+        "topLevel": {
+            "name": "atic.top",
             "patterns": [
                 {
-                    "include": "#structDef"
-                }
-            ],
-            "end": "}"
-        },
-        "structDef": {
-            "match": "\\s*(\\w+)\\s*(\\:)\\s*(.*)",
-            "captures": {
-                "1": {
-                    "name": "variable.other.definition.java"
+                    "include": "#defineStatement"
                 },
-                "2": {
-                    "name": "keyword.operator.assert.expression-separator.java"
-                },
-                "3": {
-                    "patterns": [
-                        {
-                            "include": "#types"
-                        },
-                        {
-                            "match": "\\s*;\\s*",
-                            "name": "punctuation.terminator.java"
-                        },
-                        {
-                            "include": "#structDef"
-                        }
-                    ]
-                }
-            }
-        },
-        "enum": {
-            "begin": "\\s*(.*)\\s*\\b(enum)\\b\\s*(\\w+)(.*){",
-            "beginCaptures": {
-                "1": {
-                    "patterns": [
-                        {
-                            "include": "#keywords"
-                        }
-                    ]
-                },
-                "2": {
-                    "patterns": [
-                        {
-                            "include": "#keywords"
-                        }
-                    ]
-                },
-                "3": {
-                    "name": "entity.name.type.class.java"
-                },
-                "4": {
-                    "patterns": [
-                        {
-                            "include": "#genericDef"
-                        }
-                    ]
-                }
-            },
-            "patterns": [
                 {
-                    "include": "#enumDef"
-                }
-            ],
-            "end": "}"
-        },
-        "enumDef": {
-            "match": "\\s*(\\w+)\\s*\\(\\s*(.*)\\s*\\)",
-            "captures": {
-                "1": {
-                    "name": "constant.other.enum.java"
+                    "include": "#while"
                 },
-                "2": {
-                    "patterns": [
-                        {
-                            "include": "#typeList"
-                        },
-                        {
-                            "match": "\\s*;\\s*",
-                            "name": "punctuation.terminator.java"
-                        },
-                        {
-                            "include": "#enumDef"
-                        }
-                    ]
-                }
-            }
-        },
-        "typeList": {
-            "match": "\\s*(.*)",
-            "captures": {
-                "1": {
-                    "patterns": [
-                        {
-                            "include": "#types"
-                        },
-                        {
-                            "match": "\\s*,\\s*(.*)",
-                            "captures": {
-                                "1": {
-                                    "patterns": [
-                                        {
-                                            "include": "#typeList"
+                {
+                    "include": "#memberCall"
+                },
+                {
+                    "include": "#if"
+                },
+                {
+                    "include": "#memberAccess"
+                },
+                {
+                    "match": "\\s*(true|false)\\s*",
+                    "name": "constant.language.java"
+                },
+                {
+                    "match": "\\s*[0-9]([0-9\\.]*)\\s*",
+                    "name": "constant.numeric.decimal.java"
+                },
+                {
+                    "include": "#enum"
+                },
+                {
+                    "include": "#struct"
+                },
+                {
+                    "match": "\\s*\\/\\/(.*)",
+                    "captures": {
+                        "1": {
+                            "patterns": [
+                                {
+                                    "match": "(TODO)(.*)",
+                                    "captures": {
+                                        "1": {
+                                            "name": "variable.parameter.java"
+                                        },
+                                        "2": {
+                                            "name": "string.quoted.double.java"
                                         }
-                                    ]
+                                    }
+                                },
+                                {
+                                    "match": ".*"
                                 }
-                            }
+                            ]
                         }
-                    ]
-                }
-            }
-        },
-        "semicolon": {
-            "match": "\\s*\\;\\s*",
-            "name": "punctuation.terminator.java"
-        },
-        "semicolonOrNone": {
-            "patterns": [
+                    },
+                    "name": "comment.line.double-slash.java"
+                },
+                {
+                    "include": "#function-head"
+                },
+                {
+                    "include": "#keywords"
+                },
+                {
+                    "include": "#string"
+                },
+                {
+                    "include": "#operators"
+                },
+                {
+                    "match": "=",
+                    "name": "keyword.operator.arithmetic.java"
+                },
+                {
+                    "match": "\\s*\\w+\\s*",
+                    "name": "variable.other.object.java"
+                },
                 {
                     "match": "\\s*;\\s*",
                     "name": "punctuation.terminator.java"
-                },
-                {
-                    "match": "\\s*"
                 }
             ]
+        },
+        "operators": {
+            "match": "\\s*(&&|\\|\\||\\+|-|\\/|\\*|>|<|>=|<=|==|!=|!)\\s*",
+            "name": "keyword.operator.arithmetic.java"
         },
         "keywords": {
-            "match": "\\b(let|const|fn|use|lst|if|else|while|enum|match|matches|global|logic|native|exception|strict|async|struct|try|throw|return)\\b",
+            "match": "\\s*\\b(let|const|fn|use|lst|if|else|while|enum|match|matches|global|logic|native|exception|strict|async|struct|try|throw|return)\\b\\s*",
             "name": "keyword.control.java"
         },
-        "imports": {
-            "match": "\\b(use)\\s+(\\w+\\s*(\\s*\\.\\s*\\w+)+)",
+        "defineStatement": {
+            "begin": "\\s*\\b(let|const)\\b\\s*(\\w+)\\s*",
             "captures": {
-                "1": {
-                    "name": "keyword.other.import.java"
-                },
-                "0": {
-                    "name": "storage.modifier.import.java"
-                }
-            },
-            "name": "meta.import.java"
-        },
-        "code": {
-            "patterns": [
-                {
-                    "include": "#definition"
-                },
-                {
-                    "include": "#statements"
-                },
-                {
-                    "include": "#expression"
-                }
-            ]
-        },
-        "statements": {
-            "patterns": [
-                {
-                    "match": "\\s*(while)\\s*(.*)",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.control.java"
-                        },
-                        "2": {
-                            "patterns": [
-                                {
-                                    "include": "#expression"
-                                },
-                                {
-                                    "include": "#code"
-                                }
-                            ]
-                        }
-                    }
-                },
-                {
-                    "begin": "{",
-                    "end": "}",
-                    "patterns": [
-                        {
-                            "include": "#code"
-                        }
-                    ]
-                }, {
-                    "include": "#keywords"
-                }
-            ]
-        },
-        "definition": {
-            "match": "\\s*(let|const)\\b(.*)",
-            "captures": {
-                "2": {
-                    "patterns": [
-                        {
-                            "match": "(\\w+)\\s*(.*)",
-                            "captures": {
-                                "1": {
-                                    "name": "variable.other.definition.java"
-                                },
-                                "2": {
-                                    "patterns": [
-                                        {
-                                            "match": "(\\:)(.+(?=\\=))(\\=)",
-                                            "captures": {
-                                                "1": {
-                                                    "name": "keyword.operator.assert.expression-separator.java"
-                                                },
-                                                "2": {
-                                                    "patterns": [
-                                                        {
-                                                            "include": "#types"
-                                                        }
-                                                    ]
-                                                },
-                                                "3": {
-                                                    "name": "keyword.operator.assignment.java"
-                                                }
-                                            }
-                                        },
-                                        {
-                                            "match": "(\\=)",
-                                            "captures": {
-                                                "1": {
-                                                    "name": "keyword.operator.assignment.java"
-                                                }
-                                            }
-                                        },
-                                        {
-                                            "include": "#expression"
-                                        }
-                                    ]
-                                }
-                            }
-                        }
-                    ]
-                },
-                "1": {
-                    "name": "keyword.control.java"
-                }
-            }
-        },
-        "method-head": {
-            "begin": "\\s*(fn)\\s+(<(.*)>)?\\s*(\\w+)(\\()",
-            "beginCaptures": {
-                "2": {
-                    "patterns": [
-                        {
-                            "include": "#genericDef"
-                        }
-                    ]
-                },
-                "4": {
-                    "name": "entity.name.function.java"
-                },
                 "1": {
                     "name": "keyword.control.java"
                 },
-                "5": {
-                    "name": "punctuation.definition.parameters.begin.bracket.round.java"
+                "2": {
+                    "name": "variable.other.definition.java"
                 }
             },
-            "end": "\\)",
+            "patterns": [
+                {
+                    "match": "\\s*:\\s*",
+                    "name": "keyword.operator.assignment.java"
+                },
+                {
+                    "include": "#type"
+                }
+            ],
             "endCaptures": {
-                "0": {
-                    "name": "punctuation.definition.parameters.end.bracket.round.java"
+                "1": {
+                    "name": "keyword.operator.assignment.java"
                 }
             },
-            "patterns": [
-                {
-                    "include": "#parameters"
-                }
-            ]
+            "end": "\\s*(=)\\s*"
         },
-        "returnParam": {
-            "match": "\\s*(\\-\\>)\\s*(.*)",
+        "while": {
+            "match": "\\s*\\b(while)\\b\\s*",
+            "name": "keyword.control.java"
+        },
+        "if": {
+            "match": "\\s*\\b(if)\\b\\s*",
+            "name": "keyword.control.java"
+        },
+        "memberAccess": {
+            "match": "\\s*(\\.)\\s*(\\w+)",
             "captures": {
                 "1": {
-                    "name": "storage.type.function.arrow.java"
+                    "name": "punctuation.separator.period.java"
                 },
                 "2": {
-                    "patterns": [
-                        {
-                            "include": "#types"
-                        }
-                    ]
+                    "name": "variable.other.object.property.java"
                 }
             }
         },
-        "genericDef": {
-            "match": "\\s*\\<((\\s*(,?)\\s*\\w*)*)>",
-            "captures": {
-                "1": {
-                    "patterns": [
-                        {
-                            "match": ",",
-                            "name": "punctuation.separator.delimiter.java"
-                        },
-                        {
-                            "match": "\\w+",
-                            "name": "storage.type.generic.java"
-                        }
-                    ]
-                }
-            }
-        },
-        "genericType": {
-            "match": "\\s*(<)\\s*(.*)\\s*(>)",
-            "captures": {
-                "2": {
-                    "patterns": [
-                        {
-                            "include": "#typeList"
-                        }
-                    ]
-                },
-                "1": {
-                    "name": "punctuation.bracket.angle.java"
-                },
-                "3": {
-                    "name": "punctuation.bracket.angle.java"
-                }
-            }
-        },
-        "richFunction": {
-            "match": "\\s*(fn)(.*)",
-            "captures": {
-                "1": {
-                    "name": "keyword.control.java"
-                },
-                "2": {
-                    "patterns": [
-                        {
-                            "match": "\\((.*)",
-                            "captures": {
-                                "1": {
-                                    "patterns": [
-                                        {
-                                            "include": "#parameters"
-                                        },
-                                        {
-                                            "match": "\\)\\s*(\\-\\>)(.*)",
-                                            "captures": {
-                                                "1": {
-                                                    "name": "storage.type.function.arrow.java"
-                                                },
-                                                "2": {
-                                                    "patterns": [
-                                                        {
-                                                            "include": "#types"
-                                                        },
-                                                        {
-                                                            "begin": "\\s*\\{",
-                                                            "end": "\\}",
-                                                            "patterns": [
-                                                                {
-                                                                    "match": "\\s*;\\s*",
-                                                                    "name": "punctuation.terminator.java"
-                                                                },
-                                                                {
-                                                                    "include": "#code"
-                                                                }
-                                                            ]
-                                                        },
-                                                        {
-                                                            "include": "#code"
-                                                        }
-                                                    ]
-                                                }
-                                            }
-                                        }
-                                    ]
-                                }
-                            }
-                        }
-                    ]
-                }
-            }
-        },
-        "parameters": {
-            "patterns": [
-                {
-                    "begin": "\\s*(\\w+)\\s*(\\:)\\s*",
-                    "beginCaptures": {
-                        "2": {
-                            "name": "keyword.operator.assert.expression-separator.java"
-                        },
-                        "1": {
-                            "name": "variable.parameter.java"
-                        }
-                    },
-                    "end": ",|(?=\\))",
-                    "patterns": [
-                        {
-                            "include": "#types"
-                        }
-                    ]
-                }
-            ]
-        },
-        "types": {
-            "patterns": [
-                {
-                    "match": "\\s*(void|bool|string|number)",
-                    "name": "storage.type.primitive.java"
-                },
-                {
-                    "match": "\\w+(<(.*)>)?",
-                    "captures": {
-                        "1": {
-                            "patterns": [
-                                {
-                                    "include": "#genericType"
-                                }
-                            ]
-                        }
-                    },
-                    "name": "storage.type.java"
-                }
-            ]
-        },
-        "expression": {
-            "patterns": [
-                {
-                    "include": "#richFunction"
-                },
-                {
-                    "include": "#keywords"
-                },
-                {
-                    "match": "\\s*\\b(true|false)(.*)",
-                    "captures": {
-                        "1": {
-                            "name": "constant.language.java"
-                        },
-                        "2": {
-                            "patterns": [
-                                {
-                                    "include": "#expression"
-                                }
-                            ]
-                        }
-                    }
-                },
-                {
-                    "match": "\\s*(\\!)\\s*(.*)",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.operator.arithmetic.java"
-                        },
-                        "2": {
-                            "patterns": [
-                                {
-                                    "include": "#expression"
-                                }
-                            ]
-                        }
-                    }
-                },
-                {
-                    "match": "\\s*([0-9\\.]+)",
-                    "captures": {
-                        "1": {
-                            "name": "constant.numeric.decimal.java"
-                        },
-                        "2": {
-                            "patterns": [
-                                {
-                                    "include": "#expression"
-                                }
-                            ]
-                        }
-                    }
-                },
-                {
-                    "include": "#strings"
-                },
-                {
-                    "match": "\\s*(\\+|\\-|\\*|\\/|\\>\\=|\\<\\=|\\>|\\<|\\=\\=|\\!\\=|\\&\\&|\\|\\|)(.*)",
-                    "captures": {
-                        "1": {
-                            "name": "keyword.operator.arithmetic.java"
-                        },
-                        "2": {
-                            "patterns": [
-                                {
-                                    "include": "#expression"
-                                }
-                            ]
-                        }
-                    }
-                },
-                {
-                    "include": "#member"
-                }
-            ]
-        },
-        "strings": {
+        "string": {
             "patterns": [
                 {
                     "begin": "\\s*\"",
@@ -602,164 +190,279 @@
                 }
             ]
         },
-        "member": {
-            "patterns": [
-                {
-                    "match": "\\s*([a-zA-Z]+)\\((.*)\\)(.*)",
-                    "captures": {
-                        "1": {
-                            "name": "entity.name.function.java"
-                        },
-                        "2": {
-                            "patterns": [
-                                {
-                                    "include": "#argList"
-                                }
-                            ]
-                        },
-                        "3": {
-                            "patterns": [
-                                {
-                                    "include": "#varTerminal"
-                                }
-                            ]
-                        }
-                    }
-                },
-                {
-                    "match": "\\s*([a-zA-Z]+)(.*)",
-                    "captures": {
-                        "1": {
-                            "name": "variable.other.object.java"
-                        },
-                        "2": {
-                            "patterns": [
-                                {
-                                    "include": "#varTerminal"
-                                }
-                            ]
-                        }
-                    }
-                }
-            ]
-        },
-        "varTerminal": {
-            "patterns": [
-                {
-                    "include": "#memberAccess"
-                },
-                {
-                    "include": "#callAccess"
-                },
-                {
-                    "include": "#arrayAccess"
-                },
-                {
-                    "include": "#expression"
-                }
-            ]
-        },
-        "memberAccess": {
-            "patterns": [
-                {
-                    "match": "\\s*(\\.)\\s*([a-zA-Z]+)\\((.*)\\)(.*)",
-                    "captures": {
-                        "1": {
-                            "name": "punctuation.separator.period.java"
-                        },
-                        "2": {
-                            "name": "entity.name.function.java"
-                        },
-                        "3": {
-                            "patterns": [
-                                {
-                                    "include": "#argList"
-                                }
-                            ]
-                        },
-                        "4": {
-                            "patterns": [
-                                {
-                                    "include": "#varTerminal"
-                                }
-                            ]
-                        }
-                    }
-                },
-                {
-                    "match": "\\s*(\\.)\\s*([a-zA-Z]+)(.*)",
-                    "captures": {
-                        "1": {
-                            "name": "punctuation.separator.period.java"
-                        },
-                        "2": {
-                            "name": "variable.other.object.java"
-                        },
-                        "3": {
-                            "patterns": [
-                                {
-                                    "include": "#varTerminal"
-                                }
-                            ]
-                        }
-                    }
-                }
-            ]
-        },
-        "arrayAccess": {
-            "match": "\\[(.*)\\](.*)",
+        "memberCall": {
+            "begin": "\\s*(\\.)?\\s*(\\w+)\\s*(<(.*)>)?\\(",
+            "name": "atic.function.call",
             "captures": {
+                "1": {
+                    "name": "punctuation.separator.period.java"
+                },
+                "2": {
+                    "name": "entity.name.function.java"
+                },
+                "3": {
+                    "name": "punctuation.bracket.angle.java"
+                },
+                "4": {
+                    "patterns": [
+                        {
+                            "include": "#type"
+                        }
+                    ]
+                }
+            },
+            "patterns": [
+                {
+                    "include": "#topLevel"
+                }
+            ],
+            "end": "\\)"
+        },
+        "function-head": {
+            "name": "atic.function.head",
+            "begin": "^([^<]*)\\s*(\\bfn\\b)\\s*(<([^>]*)>)?\\s*",
+            "beginCaptures": {
                 "1": {
                     "patterns": [
                         {
-                            "include": "#expression"
+                            "include": "#properties"
                         }
                     ]
                 },
                 "2": {
+                    "name": "storage.modifier.java"
+                },
+                "3": {
+                    "name": "punctuation.bracket.angle.java"
+                },
+                "4": {
+                    "name": "punctuation.separator.delimiter.java",
                     "patterns": [
                         {
-                            "include": "#varTerminal"
+                            "match": "([^,]+)",
+                            "captures": {
+                                "1": {
+                                    "patterns": [
+                                        {
+                                            "match": "\\s*(\\w+)\\s*",
+                                            "captures": {
+                                                "1": {
+                                                    "name": "storage.type.generic.java"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
                         }
                     ]
                 }
-            }
-        },
-        "callAccess": {
-            "match": "\\s*\\((.*)\\s*\\)(.*)",
-            "captures": {
-                "1": {
+            },
+            "patterns": [
+                {
+                    "match": "\\s*(\\w+)\\s*",
+                    "captures": {
+                        "1": {
+                            "name": "entity.name.function.java"
+                        }
+                    }
+                },
+                {
+                    "begin": "{",
+                    "name": "punctuation.section.method.begin.bracket.curly.java",
+                    "end": "}"
+                },
+                {
+                    "include": "#functionInput"
+                },
+                {
+                    "begin": "\\s*(->)\\s*",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "entity.name.function.java"
+                        }
+                    },
                     "patterns": [
                         {
-                            "include": "#argList"
+                            "include": "#type"
                         }
-                    ]
+                    ],
+                    "end": "(?={)"
+                }
+            ],
+            "end": "(?={)"
+        },
+        "enum": {
+            "begin": "\\s*(enum)\\s*(\\w+)\\s*{",
+            "beginCaptures": {
+                "1": {
+                    "name": "storage.modifier.java"
                 },
                 "2": {
-                    "patterns": [
-                        {
-                            "include": "#varTerminal"
-                        }
-                    ]
+                    "name": "entity.name.type.class.java"
                 }
-            }
-        },
-        "argList": {
-            "match": "(.*)",
-            "captures": {
-                "1": {
+            },
+            "patterns": [
+                {
+                    "begin": "\\s*(\\w+)\\s*\\(",
+                    "name": "punctuation.definition.parameters.begin.bracket.round.java",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "variable.other.definition.java"
+                        }
+                    },
                     "patterns": [
                         {
-                            "include": "#expression"
-                        },
-                        {
-                            "match": "\\,",
+                            "match": "\\s*,\\s*",
                             "name": "punctuation.separator.delimiter.java"
                         },
                         {
-                            "include": "#argList"
+                            "include": "#type"
                         }
-                    ]
+                    ],
+                    "end": "\\s*\\)\\s*"
+                },
+                {
+                    "match": "\\s*;\\s*",
+                    "name": "punctuation.terminator.java"
+                }
+            ],
+            "end": "}"
+        },
+        "struct": {
+            "begin": "\\s*(struct)\\s*(\\w+)\\s*{",
+            "name": "atic.struct.body",
+            "beginCaptures": {
+                "1": {
+                    "name": "storage.modifier.java"
+                },
+                "2": {
+                    "name": "entity.name.type.class.java"
+                }
+            },
+            "patterns": [
+                {
+                    "match": "\\s*(\\w+)\\s*(:)\\s*",
+                    "captures": {
+                        "1": {
+                            "name": "variable.other.definition.java"
+                        },
+                        "2": {
+                            "name": "keyword.control.ternary.java"
+                        }
+                    }
+                },
+                {
+                    "include": "#type"
+                },
+                {
+                    "match": "\\s*;\\s*",
+                    "name": "punctuation.terminator.java"
+                }
+            ],
+            "end": "\\s*}\\s*"
+        },
+        "properties": {
+            "match": "(native|strict|async|exception)*\\s*",
+            "name": "storage.modifier.java"
+        },
+        "functionInput": {
+            "begin": "\\(",
+            "name": "punctuation.definition.parameters.begin.bracket.round.java",
+            "patterns": [
+                {
+                    "match": "\\s*,\\s*",
+                    "name": "punctuation.separator.delimiter.java"
+                },
+                {
+                    "begin": "\\s*(\\w+)(:)",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "variable.parameter.java"
+                        },
+                        "2": {
+                            "name": "keyword.control.ternary.java"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#type"
+                        }
+                    ],
+                    "end": "(?=(?:,|\\)))"
+                },
+                {
+                    "match": "\\s*(\\w+)\\s*",
+                    "captures": {
+                        "1": {
+                            "name": "variable.parameter.java"
+                        }
+                    }
+                }
+            ],
+            "end": "\\)"
+        },
+        "type": {
+            "name": "atic.type",
+            "patterns": [
+                {
+                    "match": "\\s*\\b(fn)\\b\\s*",
+                    "name": "keyword.control.java"
+                },
+                {
+                    "match": "\\s*\\b(number|void|string|bool)\\b\\s*",
+                    "name": "storage.type.primitive.java"
+                },
+                {
+                    "match": "(\\w+)((\\.\\w+)*)",
+                    "captures": {
+                        "1": {
+                            "name": "storage.type.java"
+                        },
+                        "2": {
+                            "name": "storage.type.java",
+                            "patterns": [
+                                {
+                                    "match": "\\s*\\.\\s*",
+                                    "name": "punctuation.separator.period.java"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "include": "#functionInput"
+                },
+                {
+                    "match": "\\s*->\\s*",
+                    "name": "entity.name.function.java"
+                },
+                {
+                    "include": "#genericsOptionalType"
+                }
+            ]
+        },
+        "genericsOptionalType": {
+            "begin": "\\s*(<)\\s*",
+            "name": "atic.genericType",
+            "beginCaptures": {
+                "1": {
+                    "name": "punctuation.bracket.angle.java"
+                }
+            },
+            "patterns": [
+                {
+                    "match": "\\s*,\\s*",
+                    "name": "punctuation.separator.delimiter.java"
+                },
+                {
+                    "include": "#type"
+                }
+            ],
+            "end": "\\s*(>)\\s*",
+            "endCaptures": {
+                "1": {
+                    "name": "punctuation.bracket.angle.java"
                 }
             }
         }
