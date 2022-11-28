@@ -424,22 +424,29 @@
             },
             "patterns": [
                 {
-                    "match": "\\s*(\\w+)\\s*(:)\\s*",
+                    "match": "\\s*(\\w+)\\s*(:)\\s*(.*)",
                     "captures": {
                         "1": {
                             "name": "variable.other.definition.java"
                         },
                         "2": {
                             "name": "keyword.control.ternary.java"
+                        }, 
+                        "3": {
+                            "patterns": [
+                                {
+                                    "include": "#type"
+                                }
+                            ]
                         }
                     }
                 },
                 {
-                    "include": "#type"
-                },
-                {
                     "match": "\\s*;\\s*",
                     "name": "punctuation.terminator.java"
+                },
+                {
+                    "include": "#topLevel"
                 }
             ],
             "end": "\\s*}\\s*"
